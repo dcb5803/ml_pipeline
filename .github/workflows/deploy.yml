@@ -1,0 +1,24 @@
+name: Deploy ML Pipeline
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build-and-run:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies
+        run: |
+          pip install pandas numpy scikit-learn fastapi uvicorn mlflow
+
+      - name: Run pipeline
+        run: python ml_pipeline.py
